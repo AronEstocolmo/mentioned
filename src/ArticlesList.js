@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class ArticlesList extends Component {
@@ -16,7 +15,7 @@ class ArticlesList extends Component {
     
     Promise.all([res, res2])
     .then(data => {return Promise.all(data.map(r => r.json()));})
-    .then(data => this.setState({articles: data[0].response, nytArticles: data[1].response.meta}));
+    .then(data => this.setState({articles: data[0].response, nytArticles: data[1].response.meta, test: data[1]}));
 
     //res.then(function(result) {return result.json()}).then(res => this.setState({ articles: res.response }));
     //res2.then(function(result) {return result.json()}).then(res2 => this.setState({ nytArticles: res2 }));
@@ -25,15 +24,16 @@ class ArticlesList extends Component {
   render() {
     console.log(this.state.articles);
     console.log(this.state.nytArticles);
+    
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Mentions of your search term:</h1>
           The Guardian: {this.state.articles.total} , The New York Times: {this.state.nytArticles.hits} 
         </header>
         <input type="text" ref={(input) => this.text=input}></input>
         <button onClick={this.submit}>Search</button>
+
       </div>
     );
   }
